@@ -14,5 +14,5 @@ public class Comic
 
     public string createdBy { get; set; } = null!;
 
-    public ICollection<Issue> Issues { get; set; } = null!;
+    public ICollection<Issue>? Issues { get; set; } = null!;
 }

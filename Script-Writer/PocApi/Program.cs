@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PocApi.Models;
 using PocApi.Services;
+using PocApi.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,7 @@ builder.Services.Configure<ComicStoreDatabaseSettings>(
     builder.Configuration.GetSection("ComicStoreDatabase"));
 
 // Add the comic service.
-builder.Services.AddSingleton<ComicsService>();
+builder.Services.AddScoped<IComicService, ComicsService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
