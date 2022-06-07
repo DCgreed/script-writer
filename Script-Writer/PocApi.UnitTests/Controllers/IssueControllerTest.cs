@@ -19,7 +19,7 @@ namespace PocApi.UnitTests.Controllers
             var mockIssueRepo = new Mock<IIssueService>();
             var mockComicRepo = new Mock<IComicService>();
             mockIssueRepo.Setup(repo => repo.GetWithId(testId))
-                .ReturnsAsync(GetTestIssue(testId));
+                .ReturnsAsync(GetTestIssue(testId, testId));
             var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
 
             // Act
@@ -50,6 +50,46 @@ namespace PocApi.UnitTests.Controllers
             Assert.True(listResult.All(x => x.ComicId == testId));
         }
 
+        [Fact]
+        public async void CreateIssueForComic()
+        {
+            // Arrange
+            var comicId = "1";
+            var newIssueTest = GetTestIssue("issue 1", null);
+            var mockIssueRepo = new Mock<IIssueService>();
+            var mockComicRepo = new Mock<IComicService>();
+            mockIssueRepo.Setup(repo => repo.Create(newIssueTest))
+                .Returns(Task.CompletedTask);
+            mockComicRepo.Setup(repo => repo.GetWithId(comicId))
+                .ReturnsAsync(new Comic { Id = comicId });
+            var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
+
+            // Act
+            var result = await controller.Post(comicId, newIssueTest);
+
+            // Assert
+            var actionResult = Assert.IsType<CreatedAtActionResult>(result);
+            var model = Assert.IsType<Issue>(actionResult.Value);
+            Assert.Equal(comicId, model.ComicId);
+        }
+
+        [Fact]
+        public async void CreateIssueForNonExcistingComic_BadRequest()
+        {
+            // Arrange
+            var nonExcistingComicId = "1";
+            var newIssueTest = GetTestIssue("issue 1", null);
+            var mockIssueRepo = new Mock<IIssueService>();
+            var mockComicRepo = new Mock<IComicService>();
+            var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
+
+            // Act
+            var result = await controller.Post(nonExcistingComicId, newIssueTest);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
         /// <summary>
         /// Gets a list of test issues for a give comic.
         /// </summary>
@@ -78,13 +118,14 @@ namespace PocApi.UnitTests.Controllers
         /// Gets a test issue.
         /// </summary>
         /// <param name="issueId">The issue identifier.</param>
+        /// <param name="comicId">The comic identifier.</param>
         /// <returns>A issue with the specified information.</returns>
-        private Issue GetTestIssue(string issueId)
+        private Issue GetTestIssue(string issueId, string? comicId)
         {
             var issue = new Issue
             {
                 Id = issueId,
-                ComicId = "test1",
+                ComicId = comicId,
                 IssueNumber = 1,
                 Title = "Test",
                 CreatedDate = DateTime.Now,
