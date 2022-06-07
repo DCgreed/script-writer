@@ -90,6 +90,81 @@ namespace PocApi.UnitTests.Controllers
             Assert.IsType<BadRequestObjectResult>(result);
         }
 
+        [Fact]
+        public async void UpdateIssue()
+        {
+            // Arrange
+            var excistingIssueId = "1";
+            var excistingIssueTest = GetTestIssue(excistingIssueId, null);
+            var mockIssueRepo = new Mock<IIssueService>();
+            var mockComicRepo = new Mock<IComicService>();
+            mockIssueRepo.Setup(repo => repo.Update(excistingIssueId, excistingIssueTest))
+               .Returns(Task.CompletedTask);
+            mockIssueRepo.Setup(repo => repo.GetWithId(excistingIssueId))
+                .ReturnsAsync(GetTestIssue(excistingIssueId, null));
+            var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
+
+            // Act
+            var result = await controller.Update(excistingIssueId, excistingIssueTest);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public async void UpdateIssue_NotFound()
+        {
+            // Arrange
+            var excistingIssueId = "1";
+            var excistingIssueTest = GetTestIssue(excistingIssueId, null);
+            var mockIssueRepo = new Mock<IIssueService>();
+            var mockComicRepo = new Mock<IComicService>();
+            var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
+
+            // Act
+            var result = await controller.Update(excistingIssueId, excistingIssueTest);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async void DeleteIssue()
+        {
+            // Arrange
+            var excistingIssueId = "1";
+            var mockIssueRepo = new Mock<IIssueService>();
+            var mockComicRepo = new Mock<IComicService>();
+            mockIssueRepo.Setup(repo => repo.Delete(excistingIssueId))
+               .Returns(Task.CompletedTask);
+            mockIssueRepo.Setup(repo => repo.GetWithId(excistingIssueId))
+               .ReturnsAsync(GetTestIssue(excistingIssueId, null));
+            var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
+
+            // Act
+            var result = await controller.Delete(excistingIssueId);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public async void DeleteIssue_NotFound()
+        {
+            // Arrange
+            var nonExcistingIssueId = "1";
+            var mockIssueRepo = new Mock<IIssueService>();
+            var mockComicRepo = new Mock<IComicService>();
+            var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
+
+            // Act
+            var result = await controller.Delete(nonExcistingIssueId);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        #region private methods
         /// <summary>
         /// Gets a list of test issues for a give comic.
         /// </summary>
@@ -133,5 +208,6 @@ namespace PocApi.UnitTests.Controllers
 
             return issue;
         }
+        #endregion
     }
 }
