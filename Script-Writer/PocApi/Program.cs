@@ -11,6 +11,7 @@ builder.Services.Configure<ComicStoreDatabaseSettings>(
 
 // Add the comic service.
 builder.Services.AddScoped<IComicService, ComicsService>();
+builder.Services.AddScoped<IIssueService, IssueService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
