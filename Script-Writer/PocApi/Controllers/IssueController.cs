@@ -48,10 +48,10 @@ public class IssueController : ControllerBase
     /// </summary>
     /// <param name="id">The identifier of the comic.</param>
     /// <returns>List of issues.</returns>
-    [HttpGet("{id:length(24)}")]
-    public async Task<List<Issue>> GetByComicId(string id)
+    [HttpGet("comic/{comicId:length(24)}")]
+    public async Task<List<Issue>> GetByComicId(string comicId)
     {
-        var issues = await issueService.GetAllForComic(id);
+        var issues = await issueService.GetAllForComic(comicId);
 
         return issues;
     }
@@ -61,7 +61,7 @@ public class IssueController : ControllerBase
     /// </summary>
     /// <param name="newIssue">The new issue.</param>
     /// <returns>The newly created issue.</returns>
-    [HttpPost]
+    [HttpPost("{comicId:length(24)}")]
     public async Task<IActionResult> Post(string comicId, Issue newIssue)
     {
         var comic = await comicService.GetWithId(comicId);

@@ -25,8 +25,8 @@ public class IssueService : IIssueService
     /// Gets all available issues for a specified comic.
     /// </summary>
     /// <returns>A list of issues.</returns>
-    public async Task<List<Issue>> GetAllForComic(string id) =>
-        await issueCollection.Find(x => x.Id == id).ToListAsync();
+    public async Task<List<Issue>> GetAllForComic(string comicId) =>
+        await issueCollection.Find(x => x.ComicId == comicId).ToListAsync();
 
     /// <summary>
     /// Gets the issue for the provided id.

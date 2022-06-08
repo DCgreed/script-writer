@@ -29,15 +29,10 @@ namespace PocApi.Models
         /// Gets or sets the title of the issue.
         /// </summary>
         public string Title { get; set; } = null!;
-
-        /// <summary>
-        /// Gets or sets the date the issue was created.
-        /// </summary>
-        public DateTime CreatedDate { get; set; }
-
+                
         /// <summary>
         /// Gets or sets the pages in the issue.
         /// </summary>
-        public ICollection<Page> Pages { get; set; } = null!;
+        public ICollection<Page>? Pages { get; set; } = null!;
     }
 }

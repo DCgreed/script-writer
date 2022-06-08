@@ -115,14 +115,16 @@ namespace PocApi.UnitTests.Controllers
         public async void UpdateIssue_NotFound()
         {
             // Arrange
-            var excistingIssueId = "1";
-            var excistingIssueTest = GetTestIssue(excistingIssueId, null);
+            var nonExcistingIssueId = "1";
+            var nonExcistingIssueTest = GetTestIssue(nonExcistingIssueId, null);
             var mockIssueRepo = new Mock<IIssueService>();
             var mockComicRepo = new Mock<IComicService>();
+            mockIssueRepo.Setup(repo => repo.GetWithId(nonExcistingIssueId))
+              .ReturnsAsync(null as Issue);
             var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
 
             // Act
-            var result = await controller.Update(excistingIssueId, excistingIssueTest);
+            var result = await controller.Update(nonExcistingIssueId, nonExcistingIssueTest);
 
             // Assert
             Assert.IsType<NotFoundResult>(result);
@@ -155,6 +157,8 @@ namespace PocApi.UnitTests.Controllers
             var nonExcistingIssueId = "1";
             var mockIssueRepo = new Mock<IIssueService>();
             var mockComicRepo = new Mock<IComicService>();
+            mockIssueRepo.Setup(repo => repo.GetWithId(nonExcistingIssueId))
+              .ReturnsAsync(null as Issue);
             var controller = new IssueController(mockIssueRepo.Object, mockComicRepo.Object);
 
             // Act
