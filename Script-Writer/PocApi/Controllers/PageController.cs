@@ -48,8 +48,8 @@ public class PageController : ControllerBase
     /// </summary>
     /// <param name="id">The identifier of the issue.</param>
     /// <returns>List of issues.</returns>
-    [HttpGet("issue/{pageId:length(24)}")]
-    public async Task<List<Page>> GetByComicId(string issueId)
+    [HttpGet("issue/{issueId:length(24)}")]
+    public async Task<List<Page>> GetByIssueId(string issueId)
     {
         var pages = await pageService.GetAllForIssue(issueId);
 
@@ -62,7 +62,7 @@ public class PageController : ControllerBase
     /// <param name="issueId">The identifier of the issue.</param>
     /// <param name="newPage">The new page.</param>
     /// <returns>The newly created issue.</returns>
-    [HttpPost("{comicId:length(24)}")]
+    [HttpPost("{issueId:length(24)}")]
     public async Task<IActionResult> Post(string issueId, Page newPage)
     {
         var issue = await issueService.GetWithId(issueId);
