@@ -186,7 +186,6 @@ namespace PocApi.UnitTests.Controllers
                     ComicId = comicId,
                     IssueNumber = i,
                     Title = $"Test {i}",
-                    CreatedDate = DateTime.Now,
                 });
             }
             return issues;
@@ -207,7 +206,6 @@ namespace PocApi.UnitTests.Controllers
                 ComicId = comicId,
                 IssueNumber = 1,
                 Title = "Test",
-                CreatedDate = DateTime.Now,
             };
 
             return issue;
