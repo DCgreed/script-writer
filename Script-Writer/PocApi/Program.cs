@@ -6,13 +6,14 @@ using PocApi.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<ComicStoreDatabaseSettings>(
-    builder.Configuration.GetSection("ComicStoreDatabase"));
+builder.Services.Configure<ComicConnectionSettings>(
+    builder.Configuration.GetSection("ComicDatabase"));
 
 // Add the comic service.
 builder.Services.AddScoped<IComicService, ComicsService>();
 builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<IPageService, PageService>();
+builder.Services.AddScoped<IPanelService, PanelService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>

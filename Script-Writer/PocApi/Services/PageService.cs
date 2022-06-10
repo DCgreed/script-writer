@@ -10,7 +10,7 @@ public class PageService : IPageService
     private readonly IMongoCollection<Page> pageCollection;
 
     public PageService(
-        IOptions<ComicStoreDatabaseSettings> bookStoreDatabaseSettings)
+        IOptions<ComicConnectionSettings> bookStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(
             bookStoreDatabaseSettings.Value.ConnectionString);

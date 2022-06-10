@@ -10,7 +10,7 @@ public class ComicsService : IComicService
     private readonly IMongoCollection<Comic> _comicsCollection;
 
     public ComicsService(
-        IOptions<ComicStoreDatabaseSettings> bookStoreDatabaseSettings)
+        IOptions<ComicConnectionSettings> bookStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(
             bookStoreDatabaseSettings.Value.ConnectionString);
