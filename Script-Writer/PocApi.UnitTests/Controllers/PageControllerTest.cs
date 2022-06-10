@@ -43,7 +43,7 @@ namespace PocApi.UnitTests.Controllers
             var controller = new PageController(mockPageRepo.Object, mockIssueRepo.Object);
 
             // Act
-            var result = await controller.GetByComicId(testId);
+            var result = await controller.GetByIssueId(testId);
 
             // Assert
             var listResult = Assert.IsType<List<Page>>(result);

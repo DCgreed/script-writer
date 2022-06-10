@@ -5,7 +5,7 @@ namespace PocApi.Interfaces
     public interface IPageService
     {
         /// <summary>
-        /// Gets all available issues for a specified issue.
+        /// Gets all available pages for a specified issue.
         /// </summary>
         /// <param name="issueId">The identifier of the issue.</param>
         /// <returns>A list of pages.</returns>
@@ -16,7 +16,7 @@ namespace PocApi.Interfaces
         /// Gets the page for the provided id.
         /// </summary>
         /// <param name="id">The identifier of the page.</param>
-        /// <returns>A issue matching the id.</returns>
+        /// <returns>A page matching the id.</returns>
         public Task<Page?> GetWithId(string id);
 
         /// <summary>

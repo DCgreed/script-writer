@@ -10,7 +10,7 @@ public class IssueService : IIssueService
     private readonly IMongoCollection<Issue> issueCollection;
 
     public IssueService(
-        IOptions<ComicStoreDatabaseSettings> bookStoreDatabaseSettings)
+        IOptions<ComicConnectionSettings> bookStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(
             bookStoreDatabaseSettings.Value.ConnectionString);

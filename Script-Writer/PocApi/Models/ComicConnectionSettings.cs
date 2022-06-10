@@ -1,6 +1,6 @@
 namespace PocApi.Models;
 
-public class ComicStoreDatabaseSettings
+public class ComicConnectionSettings
 {
     public string ConnectionString { get; set; } = null!;
 
