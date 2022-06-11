@@ -6,11 +6,11 @@ namespace PocApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ComicsController : ControllerBase
+public class ComicController : ControllerBase
 {
     private readonly IComicService comicService;
 
-    public ComicsController(IComicService comicsService) =>
+    public ComicController(IComicService comicsService) =>
         this.comicService = comicsService;
 
     /// <summary>
