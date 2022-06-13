@@ -8,7 +8,7 @@ namespace PocApi.Models
     /// </summary>
     public class Page
     {
-        // <summary>
+        /// <summary>
         /// Gets the mongo id of the page.
         /// </summary>
         [BsonId]

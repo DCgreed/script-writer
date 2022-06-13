@@ -10,10 +10,12 @@ builder.Services.Configure<ComicConnectionSettings>(
     builder.Configuration.GetSection("ComicDatabase"));
 
 // Add the comic service.
-builder.Services.AddScoped<IComicService, ComicsService>();
+builder.Services.AddScoped<IComicService, ComicService>();
 builder.Services.AddScoped<IIssueService, IssueService>();
 builder.Services.AddScoped<IPageService, PageService>();
 builder.Services.AddScoped<IPanelService, PanelService>();
+builder.Services.AddScoped<IDialogueService, DialogueService>();
+builder.Services.AddScoped<IActorService, ActorService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>

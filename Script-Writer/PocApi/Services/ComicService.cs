@@ -5,11 +5,11 @@ using MongoDB.Driver;
 
 namespace PocApi.Services;
 
-public class ComicsService : IComicService
+public class ComicService : IComicService
 {
     private readonly IMongoCollection<Comic> _comicsCollection;
 
-    public ComicsService(
+    public ComicService(
         IOptions<ComicConnectionSettings> bookStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(

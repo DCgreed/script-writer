@@ -8,7 +8,7 @@ namespace PocApi.Models
     /// </summary>
     public class Panel
     {
-        // <summary>
+        /// <summary>
         /// Gets the mongo id of the panel.
         /// </summary>
         [BsonId]
@@ -31,8 +31,8 @@ namespace PocApi.Models
         public int PanelOrder { get; set; }
 
         /// <summary>
-        /// Gets or set the text in the panel.
+        /// Gets or set the dialogues in the panel.
         /// </summary>
-        public ICollection<Text>? Texts { get; set; } = null!;
+        public ICollection<Dialogue>? Dialogues { get; set; } = null!;
     }
 }
