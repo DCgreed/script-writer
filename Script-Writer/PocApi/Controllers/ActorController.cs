@@ -70,7 +70,7 @@ public class ActorController : ControllerBase
     /// <param name="comicId">The identifier of the comic.</param>
     /// <param name="newActor">The new actor.</param>
     /// <returns>The newly created panel.</returns>
-    [HttpPost("{actorId:length(24)}")]
+    [HttpPost("{comicId:length(24)}")]
     public async Task<IActionResult> Post(string comicId, Actor newActor)
     {
         var comic = await comicService.GetWithId(comicId);
